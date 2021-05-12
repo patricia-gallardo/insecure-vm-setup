@@ -4,6 +4,11 @@ set -e
 #  export USER_PASSWORD=<password>
 #  bash <(curl -s https://raw.githubusercontent.com/patricia-gallardo/insecure-vm-setup/main/setup_user.sh)
 
+if [[ -z "$USER_PASSWORD" ]]; then
+    echo "Must provide USER_PASSWORD in environment" 1>&2
+    exit 1
+fi
+
 apt update
 apt -y upgrade
 
