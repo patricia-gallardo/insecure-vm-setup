@@ -2,7 +2,7 @@
 set -e
 
 #  export USER_PASSWORD=<password>
-#  bash <(curl -s https://raw.githubusercontent.com/patricia-gallardo/insecure-vm-setup/main/setup.sh)
+#  bash <(curl -s https://raw.githubusercontent.com/patricia-gallardo/insecure-vm-setup/main/setup_user.sh)
 
 apt update
 apt upgrade
