@@ -7,6 +7,6 @@ set -e
 apt update
 apt upgrade
 
-adduser -p $USER_PASSWORD training
+useradd -m -p $(perl -e 'print crypt($ARGV[0], "password")' $USER_PASSWORD) training
 usermod -a -G sudo training
 sudo reboot
