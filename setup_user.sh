@@ -14,4 +14,5 @@ apt -y upgrade
 
 useradd -m -p $(perl -e 'print crypt($ARGV[0], "password")' $USER_PASSWORD) training
 usermod -a -G sudo training
+usermod --shell /bin/bash training
 sudo reboot
