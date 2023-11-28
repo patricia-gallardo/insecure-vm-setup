@@ -32,11 +32,32 @@ do
   echo "Command: ssh $USER@$IP"
   echo ""
 
-  #ssh training@$IP
-  #(sshpass -p $ROOT_PASSWORD ssh root@$IP "export USER_PASSWORD=${PASSWORD} && DEBIAN_FRONTEND=noninteractive bash <(curl -s https://raw.githubusercontent.com/patricia-gallardo/insecure-vm-setup/main/setup_user.sh)") || true
-  (sshpass -p $PASSWORD ssh training@$IP 'df') || true
-  echo ""
-  echo "Finished $IP"
+  # Check if IP is in known hosts already
+  ssh-keygen -F $IP > /dev/null
+  if [ "$?" -ne 0 ]
+  then
+    echo "-----------------------------------------"
+    echo "Not in known hosts, just say yes and press enter 3 times"
+    echo "-----------------------------------------"
+    ssh training@$IP
+  else
+    echo "[*] Already in known hosts"
+  fi
+
+  # Check if user is set up
+  sshpass -p $PASSWORD ssh training@$IP 'pwd' > /dev/null
+  if [ "$?" -ne 0 ]
+  then
+    echo "-----------------------------------------"
+    echo "User not set up, update and create user"
+    echo "-----------------------------------------"
+    (sshpass -p $ROOT_PASSWORD ssh root@$IP "export USER_PASSWORD=${PASSWORD} && DEBIAN_FRONTEND=noninteractive bash <(curl -s https://raw.githubusercontent.com/patricia-gallardo/insecure-vm-setup/main/setup_user.sh)") || true
+  else
+    echo "[*] User already set up"
+  fi
+
+  # (sshpass -p $PASSWORD ssh training@$IP 'df') || true
+  echo "[*] Finished $IP"
   echo "-----------------------------------------"
   echo ""
 
