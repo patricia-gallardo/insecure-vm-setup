@@ -33,7 +33,7 @@ do
   echo ""
 
   #ssh training@$IP
-  #(sshpass -p $ROOT_PASSWORD ssh root@$IP "export USER_PASSWORD=${PASSWORD} && bash <(curl -s https://raw.githubusercontent.com/patricia-gallardo/insecure-vm-setup/main/setup_user.sh)") || true
+  #(sshpass -p $ROOT_PASSWORD ssh root@$IP "export USER_PASSWORD=${PASSWORD} && DEBIAN_FRONTEND=noninteractive bash <(curl -s https://raw.githubusercontent.com/patricia-gallardo/insecure-vm-setup/main/setup_user.sh)") || true
   (sshpass -p $PASSWORD ssh training@$IP 'df') || true
   echo ""
   echo "Finished $IP"
